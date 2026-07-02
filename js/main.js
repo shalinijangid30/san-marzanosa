@@ -39,6 +39,49 @@
     else source.addEventListener("load", process, { once: true });
   })();
 
+  /* ---------- SPLIT-FLAP PRELOADER WORD ---------- */
+  (function buildSplitFlap() {
+    const el = document.getElementById("preWord");
+    if (!el) return;
+    const text = (el.getAttribute("aria-label") || "SAN MARZANO").toUpperCase();
+    const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const CYCLES = 7;
+    const CYCLE_MS = 70;
+    const STAGGER_MS = 40;
+
+    el.innerHTML = "";
+    text.split("").forEach((ch, idx) => {
+      const tile = document.createElement("span");
+      tile.className = "flap" + (ch === " " ? " space" : "");
+      const face = document.createElement("span");
+      face.className = "flap-face";
+      face.textContent = ch === " " ? " " : ch;
+      tile.appendChild(face);
+      el.appendChild(tile);
+      if (ch === " ") return;
+
+      const sequence = [];
+      for (let i = 0; i < CYCLES - 1; i++) {
+        sequence.push(CHARSET[Math.floor(Math.random() * CHARSET.length)]);
+      }
+      sequence.push(ch);
+
+      let step = 0;
+      setTimeout(() => {
+        const iv = setInterval(() => {
+          tile.classList.add("flipping");
+          const thisStep = step;
+          setTimeout(() => {
+            face.textContent = sequence[thisStep];
+            tile.classList.remove("flipping");
+          }, 90);
+          step++;
+          if (step >= sequence.length) clearInterval(iv);
+        }, CYCLE_MS + 90);
+      }, idx * STAGGER_MS);
+    });
+  })();
+
   /* ---------- PRELOADER ---------- */
   const preloader = document.getElementById("preloader");
   document.body.classList.add("no-scroll");

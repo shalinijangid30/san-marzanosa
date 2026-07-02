@@ -113,12 +113,36 @@ html[dir="rtl"] #preloader.hide .pre-panel.right { transform: translateX(-101%);
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-family: var(--font-head); color: var(--gold-light); font-size: 1.6rem;
 }
-.pre-mark .pre-word {
-  font-family: var(--font-head); color: var(--cream);
-  font-size: clamp(1.5rem, 4vw, 2.4rem); letter-spacing: 0.18em; text-transform: uppercase;
+.pre-mark .pre-word.split-flap {
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(3px, 0.6vw, 6px); flex-wrap: wrap; max-width: 92vw;
 }
-.pre-mark .pre-sub {
-  font-size: 0.68rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold);
+
+/* ---------- SPLIT-FLAP TILES ---------- */
+.flap {
+  position: relative;
+  width: clamp(18px, 4.4vw, 34px); height: clamp(26px, 6.2vw, 46px);
+  border-radius: 3px; overflow: hidden;
+  background: linear-gradient(180deg, #1c3325, #0f1c14);
+  box-shadow: inset 0 0 0 1px rgba(214,184,126,0.3), 0 3px 6px rgba(0,0,0,0.45);
+  perspective: 160px;
+}
+.flap.space { width: clamp(10px, 2.2vw, 16px); background: transparent; box-shadow: none; }
+.flap .flap-face {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-weight: 700; color: var(--cream);
+  font-size: clamp(0.85rem, 2.6vw, 1.5rem);
+  transform-style: preserve-3d; backface-visibility: hidden;
+}
+.flap .flap-face::after {
+  content: ''; position: absolute; inset-inline: 0; inset-block-start: 50%; height: 1px;
+  background: rgba(0,0,0,0.55); z-index: 2;
+}
+.flap.flipping .flap-face { animation: flapFlip 0.16s ease-in; }
+@keyframes flapFlip {
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(-100deg); }
 }
 .pre-loading-bar {
   width: 160px; height: 1px; background: rgba(214,184,126,0.25); position: relative; overflow: hidden;
