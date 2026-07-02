@@ -377,13 +377,34 @@ footer {
   background: var(--forest-deep) center/cover no-repeat;
 }
 .page-hero::before {
-  content: ''; position: absolute; inset: 0;
+  content: ''; position: absolute; inset: 0; z-index: 2;
   background: linear-gradient(to bottom, rgba(20,30,22,0.6), rgba(15,20,15,0.45) 45%, rgba(15,20,15,0.8));
 }
-.page-hero-content { position: relative; z-index: 2; color: var(--cream); max-width: 720px; padding-inline: 24px; }
+.page-hero-content { position: relative; z-index: 3; color: var(--cream); max-width: 720px; padding-inline: 24px; }
 .page-hero-content .eyebrow { color: var(--gold-light); }
 .page-hero-content h1 { color: var(--cream); font-size: clamp(2.2rem, 5vw, 3.6rem); margin-block-start: 6px; }
 .page-hero-content p.lede { color: rgba(247,241,230,0.78); margin-block-start: 16px; }
+
+/* ---------- MULTILAYERED PHOTO ALBUM HERO ---------- */
+.page-hero--album {
+  height: auto; min-height: 560px; padding-block: 70px 60px;
+}
+.page-hero--album .page-hero-content { position: absolute; inset-block-start: 44px; inset-inline: 0; margin-inline: auto; width: fit-content; }
+.photo-album {
+  position: absolute; inset: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.album-card {
+  position: absolute; width: clamp(84px, 11vw, 150px); aspect-ratio: 9 / 16;
+  border-radius: 4px; overflow: hidden; border: 4px solid var(--cream);
+  box-shadow: 0 24px 50px rgba(0,0,0,0.5);
+}
+.album-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.album-card:nth-child(1) { transform: translateX(-24vw) rotate(-14deg); z-index: 1; }
+.album-card:nth-child(2) { transform: translateX(-12vw) rotate(-7deg); z-index: 2; }
+.album-card:nth-child(3) { transform: translateX(0) rotate(0deg); z-index: 3; }
+.album-card:nth-child(4) { transform: translateX(12vw) rotate(7deg); z-index: 2; }
+.album-card:nth-child(5) { transform: translateX(24vw) rotate(14deg); z-index: 1; }
 
 /* ---------- HOMEPAGE TEASER CARDS (menu / private events) ---------- */
 .teaser-cta { text-align: center; margin-block-start: 44px; }
