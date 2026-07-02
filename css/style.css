@@ -118,26 +118,19 @@ html[dir="rtl"] #preloader.hide .pre-panel.right { transform: translateX(-101%);
   gap: clamp(3px, 0.6vw, 6px); flex-wrap: wrap; max-width: 92vw;
 }
 
-/* ---------- SPLIT-FLAP TILES ---------- */
+/* ---------- SPLIT-FLAP CHARACTERS ---------- */
 .flap {
   position: relative;
-  width: clamp(18px, 4.4vw, 34px); height: clamp(26px, 6.2vw, 46px);
-  border-radius: 3px; overflow: hidden;
-  background: linear-gradient(180deg, #1c3325, #0f1c14);
-  box-shadow: inset 0 0 0 1px rgba(214,184,126,0.3), 0 3px 6px rgba(0,0,0,0.45);
+  width: clamp(14px, 3.2vw, 26px); height: clamp(26px, 6.2vw, 46px);
   perspective: 160px;
 }
-.flap.space { width: clamp(10px, 2.2vw, 16px); background: transparent; box-shadow: none; }
+.flap.space { width: clamp(10px, 2.2vw, 16px); }
 .flap .flap-face {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-head); font-weight: 700; color: var(--cream);
-  font-size: clamp(0.85rem, 2.6vw, 1.5rem);
+  font-size: clamp(1.1rem, 3.4vw, 2rem);
   transform-style: preserve-3d; backface-visibility: hidden;
-}
-.flap .flap-face::after {
-  content: ''; position: absolute; inset-inline: 0; inset-block-start: 50%; height: 1px;
-  background: rgba(0,0,0,0.55); z-index: 2;
 }
 .flap.flipping .flap-face { animation: flapFlip 0.16s ease-in; }
 @keyframes flapFlip {
