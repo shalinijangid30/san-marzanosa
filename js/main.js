@@ -69,6 +69,23 @@
   document.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
+  /* ---------- SIDE NAV THEME (light/dark text depending on section behind it) ---------- */
+  const sideNav = document.getElementById("sideNav");
+  const themedSections = Array.from(document.querySelectorAll("[data-theme]"));
+  if (sideNav && themedSections.length) {
+    const onThemeScroll = () => {
+      const probeY = window.innerHeight / 2;
+      let current = themedSections[0];
+      for (const el of themedSections) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= probeY && rect.bottom >= probeY) { current = el; break; }
+      }
+      sideNav.classList.toggle("on-light", current.dataset.theme === "light");
+    };
+    document.addEventListener("scroll", onThemeScroll, { passive: true });
+    onThemeScroll();
+  }
+
   /* ---------- MOBILE DRAWER ---------- */
   const drawer = document.getElementById("mobile-drawer");
   document.getElementById("hamburgerBtn").addEventListener("click", () => drawer.classList.add("open"));
