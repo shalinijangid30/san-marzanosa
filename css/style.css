@@ -145,21 +145,12 @@ header#site-header.solid {
   padding-block: 14px;
   box-shadow: 0 6px 24px rgba(0,0,0,0.18);
 }
-.brand-logo { display: flex; align-items: center; gap: 10px; color: var(--cream); }
+.brand-logo {
+  display: flex; align-items: center; gap: 10px; color: var(--cream);
+  position: absolute; left: 50%; transform: translateX(-50%);
+}
 .brand-logo img { width: 42px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); }
 .brand-logo .brand-text { font-family: var(--font-head); font-size: 1.1rem; letter-spacing: 0.14em; }
-
-nav.main-nav { display: none; }
-nav.main-nav ul { display: flex; gap: 38px; }
-nav.main-nav a {
-  color: var(--cream); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase;
-  position: relative; padding-block: 4px;
-}
-nav.main-nav a::after {
-  content: ''; position: absolute; inset-block-end: 0; inset-inline-start: 0; width: 0; height: 1px;
-  background: var(--gold); transition: width 0.3s ease;
-}
-nav.main-nav a:hover::after { width: 100%; }
 
 .header-actions { display: flex; align-items: center; gap: 16px; }
 .lang-toggle {
@@ -169,9 +160,35 @@ nav.main-nav a:hover::after { width: 100%; }
 .lang-toggle:hover { border-color: var(--gold); color: var(--gold-light); }
 .hamburger { display: flex; flex-direction: column; gap: 5px; width: 26px; }
 .hamburger span { height: 1px; background: var(--cream); width: 100%; display: block; }
-@media (min-width: 960px) {
-  nav.main-nav { display: block; }
+
+/* ---------- FIXED VERTICAL SIDE NAV (desktop) ---------- */
+.side-nav {
+  display: none;
+  position: fixed; z-index: 400;
+  inset-inline-start: 22px; top: 50%; transform: translateY(-50%);
+  background: rgba(20,42,30,0.82); backdrop-filter: blur(6px);
+  border: 1px solid rgba(214,184,126,0.25); border-radius: 30px;
+  padding: 32px 20px;
+}
+.side-nav ul { display: flex; flex-direction: column; gap: 26px; }
+.side-nav a {
+  display: inline-block; color: var(--cream); font-size: 0.72rem; letter-spacing: 0.14em;
+  text-transform: uppercase; position: relative; padding-inline-start: 14px; white-space: nowrap;
+}
+.side-nav a::before {
+  content: ''; position: absolute; inset-inline-start: 0; top: 50%; transform: translateY(-50%);
+  width: 6px; height: 1px; background: var(--gold); transition: width 0.3s ease;
+}
+.side-nav a:hover { color: var(--gold-light); }
+.side-nav a:hover::before { width: 10px; }
+
+@media (min-width: 1100px) {
+  .side-nav { display: block; }
   .hamburger { display: none; }
+  .container { padding-inline-start: 130px; }
+}
+@media (max-width: 1099px) {
+  .hamburger { display: flex; }
 }
 
 @media (max-width: 600px) {

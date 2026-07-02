@@ -40,26 +40,28 @@
 
 <!-- HEADER -->
 <header id="site-header">
+  <button class="lang-toggle" id="langToggle">EN / عربي</button>
   <a href="#top" class="brand-logo">
     <img src="images/logo.jpeg" alt="San Marzano" onerror="this.style.display='none'">
     <span class="brand-text" data-i18n="brandFull">San Marzano</span>
   </a>
-  <nav class="main-nav">
-    <ul>
-      <li><a href="#story" data-i18n="navStory">Our Story</a></li>
-      <li><a href="#menu" data-i18n="navMenu">Menu</a></li>
-      <li><a href="#gallery" data-i18n="navGallery">Gallery</a></li>
-      <li><a href="#reserve" data-i18n="navReserve">Reservations</a></li>
-      <li><a href="#events" data-i18n="navEvents">Private Events</a></li>
-      <li><a href="#contact" data-i18n="navContact">Contact</a></li>
-    </ul>
-  </nav>
   <div class="header-actions">
-    <button class="lang-toggle" id="langToggle">EN / عربي</button>
     <a href="#reserve" class="btn btn-gold" data-i18n="navReserveBtn">Reserve</a>
     <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
+
+<!-- FIXED VERTICAL SIDE NAV (desktop) -->
+<nav class="side-nav" id="sideNav">
+  <ul>
+    <li><a href="#story" data-i18n="navStory">Our Story</a></li>
+    <li><a href="#menu" data-i18n="navMenu">Menu</a></li>
+    <li><a href="#gallery" data-i18n="navGallery">Gallery</a></li>
+    <li><a href="#reserve" data-i18n="navReserve">Reservations</a></li>
+    <li><a href="#events" data-i18n="navEvents">Private Events</a></li>
+    <li><a href="#contact" data-i18n="navContact">Contact</a></li>
+  </ul>
+</nav>
 
 <div id="mobile-drawer">
   <button class="close-drawer" id="closeDrawer">&times;</button>
