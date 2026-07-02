@@ -55,10 +55,10 @@
 <nav class="side-nav" id="sideNav">
   <ul>
     <li><a href="#story" data-i18n="navStory">Our Story</a></li>
-    <li><a href="#menu" data-i18n="navMenu">Menu</a></li>
+    <li><a href="menu.html" data-i18n="navMenu">Menu</a></li>
     <li><a href="#gallery" data-i18n="navGallery">Gallery</a></li>
     <li><a href="#reserve" data-i18n="navReserve">Reservations</a></li>
-    <li><a href="#events" data-i18n="navEvents">Private Events</a></li>
+    <li><a href="private-events.html" data-i18n="navEvents">Private Events</a></li>
     <li><a href="#contact" data-i18n="navContact">Contact</a></li>
   </ul>
 </nav>
@@ -66,10 +66,10 @@
 <div id="mobile-drawer">
   <button class="close-drawer" id="closeDrawer">&times;</button>
   <a href="#story" data-i18n="navStory">Our Story</a>
-  <a href="#menu" data-i18n="navMenu">Menu</a>
+  <a href="menu.html" data-i18n="navMenu">Menu</a>
   <a href="#gallery" data-i18n="navGallery">Gallery</a>
   <a href="#reserve" data-i18n="navReserve">Reservations</a>
-  <a href="#events" data-i18n="navEvents">Private Events</a>
+  <a href="private-events.html" data-i18n="navEvents">Private Events</a>
   <a href="#contact" data-i18n="navContact">Contact</a>
 </div>
 
@@ -123,8 +123,9 @@
         <span class="price">SAR 155</span>
       </div>
     </div>
-    <div class="menu-cta reveal">
-      <a href="#reserve" class="btn btn-gold" data-i18n="menuCta">Book a Table to Taste More</a>
+    <div class="menu-cta reveal" style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+      <a href="menu.html" class="btn btn-gold" data-i18n="menuCtaFull">View Full Menu</a>
+      <a href="#reserve" class="btn btn-outline" style="border-color: rgba(247,241,230,0.4); color: var(--cream);" data-i18n="menuCta">Book a Table to Taste More</a>
     </div>
   </div>
 </section>
@@ -201,71 +202,19 @@
   </div>
 </section>
 
-<!-- PRIVATE DINING & EVENTS -->
-<section class="private-section section-pad" id="events" data-theme="light">
-  <div class="container private-grid">
-    <div class="private-info reveal">
-      <img src="images/gallery-4.png" alt="Private dining room" onerror="this.style.display='none'">
+<!-- PRIVATE DINING & EVENTS TEASER -->
+<section class="private-section section-pad" data-theme="light">
+  <div class="container story-grid">
+    <div class="story-media reveal">
+      <img src="images/gallery-4.png" alt="Private dining room" onerror="this.parentElement.style.background='var(--cream-soft)'">
+    </div>
+    <div class="story-text reveal">
       <span class="eyebrow" data-i18n="eventsEyebrow">Private Dining & Events</span>
       <h2 data-i18n="eventsTitle">Host Your Occasion at San Marzano</h2>
       <p data-i18n="eventsP1">From intimate family dinners to full restaurant buyouts, our private dining spaces bring the warmth of Italy to every celebration — birthdays, corporate dinners, engagements, and more.</p>
-      <ul>
-        <li data-i18n="eventsLi1">Semi-private and full buyout options</li>
-        <li data-i18n="eventsLi2">Bespoke set menus and wine pairings</li>
-        <li data-i18n="eventsLi3">Dedicated events coordinator</li>
-        <li data-i18n="eventsLi4">Capacity up to 80 guests</li>
-      </ul>
-    </div>
-    <div class="private-form-box reveal">
-      <h3 data-i18n="eventsFormTitle">Enquire Now</h3>
-      <form class="res-form" id="eventsForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <div class="row2">
-          <div class="field">
-            <label data-i18n="fName">Full Name</label>
-            <input type="text" name="name" required>
-          </div>
-          <div class="field">
-            <label data-i18n="fEmail">Email</label>
-            <input type="email" name="email" required>
-          </div>
-        </div>
-        <div class="row2">
-          <div class="field">
-            <label data-i18n="fPhone">Phone</label>
-            <input type="tel" name="phone" required>
-          </div>
-          <div class="field">
-            <label data-i18n="fEventType">Event Type</label>
-            <select name="event_type" required>
-              <option value="" data-i18n="fSelect">Select</option>
-              <option data-i18n="evtBirthday">Birthday</option>
-              <option data-i18n="evtCorporate">Corporate</option>
-              <option data-i18n="evtEngagement">Engagement</option>
-              <option data-i18n="evtBuyout">Full Buyout</option>
-              <option data-i18n="evtOther">Other</option>
-            </select>
-          </div>
-        </div>
-        <div class="row2">
-          <div class="field">
-            <label data-i18n="fDate">Preferred Date</label>
-            <input type="date" name="date">
-          </div>
-          <div class="field">
-            <label data-i18n="fGuestCount">Guest Count</label>
-            <input type="number" name="guest_count" min="1" placeholder="e.g. 20">
-          </div>
-        </div>
-        <div class="field">
-          <label data-i18n="fMessage">Tell Us More</label>
-          <textarea name="message" placeholder=""></textarea>
-        </div>
-        <input type="hidden" name="_subject" value="Private Dining Enquiry — San Marzano">
-        <div>
-          <button type="submit" class="btn btn-gold" data-i18n="eventsSubmit">Send Enquiry</button>
-        </div>
-        <p class="form-status" id="eventsStatus"></p>
-      </form>
+      <div class="teaser-cta" style="text-align:start; margin-block-start:28px;">
+        <a href="private-events.html" class="btn btn-gold" data-i18n="eventsCta">Explore Private Events</a>
+      </div>
     </div>
   </div>
 </section>
@@ -310,7 +259,7 @@
         <h4 data-i18n="footerExplore">Explore</h4>
         <ul>
           <li><a href="#story" data-i18n="navStory">Our Story</a></li>
-          <li><a href="#menu" data-i18n="navMenu">Menu</a></li>
+          <li><a href="menu.html" data-i18n="navMenu">Menu</a></li>
           <li><a href="#gallery" data-i18n="navGallery">Gallery</a></li>
         </ul>
       </div>
@@ -318,7 +267,7 @@
         <h4 data-i18n="footerServices">Services</h4>
         <ul>
           <li><a href="#reserve" data-i18n="navReserve">Reservations</a></li>
-          <li><a href="#events" data-i18n="navEvents">Private Events</a></li>
+          <li><a href="private-events.html" data-i18n="navEvents">Private Events</a></li>
           <li><a href="#contact" data-i18n="navContact">Contact</a></li>
         </ul>
       </div>

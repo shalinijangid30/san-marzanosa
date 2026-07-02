@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu | San Marzano Ristorante</title>
+<meta name="description" content="Explore the full San Marzano menu — wood-fired Neapolitan pizza, antipasti, pasta, mains, and dolci, crafted with imported Italian ingredients.">
+<meta property="og:title" content="Menu | San Marzano Ristorante">
+<meta property="og:description" content="Wood-fired Neapolitan pizza, antipasti, pasta, mains, and dolci.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="images/gallery-3.png">
+<meta name="theme-color" content="#1F3B2C">
+<link rel="icon" href="images/logo.jpeg">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pre-panel left"></div>
+  <div class="pre-panel right"></div>
+  <div class="pre-mark">
+    <img src="images/logo.jpeg" alt="San Marzano" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'pre-fallback',innerText:'SM'}))">
+    <div class="pre-word" data-i18n="brandFull">San Marzano</div>
+    <div class="pre-sub" data-i18n="brandTag">Pizzeria Italiana Ristorante</div>
+    <div class="pre-loading-bar"><span></span></div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="site-header">
+  <button class="lang-toggle" id="langToggle">EN / عربي</button>
+  <a href="index.html" class="brand-logo">
+    <img src="images/logo.jpeg" alt="San Marzano" onerror="this.style.display='none'">
+    <span class="brand-text" data-i18n="brandFull">San Marzano</span>
+  </a>
+  <div class="header-actions">
+    <a href="index.html#reserve" class="btn btn-gold" data-i18n="navReserveBtn">Reserve</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- FIXED VERTICAL SIDE NAV (desktop) -->
+<nav class="side-nav" id="sideNav">
+  <ul>
+    <li><a href="index.html#story" data-i18n="navStory">Our Story</a></li>
+    <li><a href="menu.html" data-i18n="navMenu">Menu</a></li>
+    <li><a href="index.html#gallery" data-i18n="navGallery">Gallery</a></li>
+    <li><a href="index.html#reserve" data-i18n="navReserve">Reservations</a></li>
+    <li><a href="private-events.html" data-i18n="navEvents">Private Events</a></li>
+    <li><a href="index.html#contact" data-i18n="navContact">Contact</a></li>
+  </ul>
+</nav>
+
+<div id="mobile-drawer">
+  <button class="close-drawer" id="closeDrawer">&times;</button>
+  <a href="index.html#story" data-i18n="navStory">Our Story</a>
+  <a href="menu.html" data-i18n="navMenu">Menu</a>
+  <a href="index.html#gallery" data-i18n="navGallery">Gallery</a>
+  <a href="index.html#reserve" data-i18n="navReserve">Reservations</a>
+  <a href="private-events.html" data-i18n="navEvents">Private Events</a>
+  <a href="index.html#contact" data-i18n="navContact">Contact</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero" data-theme="dark" style="background-image:url('images/gallery-3.png')">
+  <div class="page-hero-content">
+    <span class="eyebrow" data-i18n="menuPageEyebrow">Pizzeria Italiana</span>
+    <h1 data-i18n="menuPageTitle">The Menu</h1>
+    <p class="lede" data-i18n="menuPageLede">Wood-fired pizza, hand-made pasta, and honest Italian cooking — crafted daily with imported ingredients.</p>
+  </div>
+</section>
+
+<!-- FULL MENU -->
+<section class="menu-page-section section-pad" data-theme="light">
+  <div class="container" style="max-width: 900px;">
+
+    <div class="menu-category reveal">
+      <div class="menu-category-head"><h2 data-i18n="catAntipasti">Antipasti</h2><span class="rule"></span></div>
+      <div class="menu-list">
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="a1Title">Burrata Pugliese</h4><p data-i18n="a1Desc">Heirloom tomato, basil oil, aged balsamic</p></div>
+          <span class="mli-price">SAR 68</span>
+        </div>
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="a2Title">Carpaccio di Manzo</h4><p data-i18n="a2Desc">Beef carpaccio, rocket, parmesan, black truffle</p></div>
+          <span class="mli-price">SAR 78</span>
+        </div>
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="a3Title">Fritto Misto</h4><p data-i18n="a3Desc">Calamari, prawns, lemon aioli</p></div>
+          <span class="mli-price">SAR 72</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-category reveal">
+      <div class="menu-category-head"><h2 data-i18n="catPizza">Pizza al Forno</h2><span class="rule"></span></div>
+      <div class="menu-list">
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="menu1Title">Margherita San Marzano</h4><p data-i18n="menu1Desc">San Marzano tomato, fior di latte, basil, extra virgin olive oil</p></div>
+          <span class="mli-price">SAR 65</span>
+        </div>
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="menu2Title">Tartufo Nero</h4><p data-i18n="menu2Desc">Black truffle cream, wild mushroom, taleggio, rocket</p></div>
+          <span class="mli-price">SAR 105</span>
+        </div>
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="p1Title">Diavola</h4><p data-i18n="p1Desc">Spicy salami, San Marzano tomato, chili honey</p></div>
+          <span class="mli-price">SAR 70</span>
+        </div>
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="p2Title">Quattro Formaggi</h4><p data-i18n="p2Desc">Four cheese blend, honey, walnut</p></div>
+          <span class="mli-price">SAR 88</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-category reveal">
+      <div class="menu-category-head"><h2 data-i18n="catPasta">Pasta e Risotto</h2><span class="rule"></span></div>
+      <div class="menu-list">
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="ps1Title">Tagliatelle al Tartufo</h4><p data-i18n="ps1Desc">Fresh tagliatelle, black truffle, parmesan cream</p></div>
+          <span class="mli-price">SAR 98</span>
+        </div>
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="ps2Title">Risotto ai Frutti di Mare</h4><p data-i18n="ps2Desc">Saffron risotto, seasonal seafood</p></div>
+          <span class="mli-price">SAR 115</span>
+        </div>
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="ps3Title">Spaghetti alle Vongole</h4><p data-i18n="ps3Desc">Clams, garlic, white wine, chili, parsley</p></div>
+          <span class="mli-price">SAR 92</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-category reveal">
+      <div class="menu-category-head"><h2 data-i18n="catSecondi">Secondi</h2><span class="rule"></span></div>
+      <div class="menu-list">
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="menu3Title">Branzino al Forno</h4><p data-i18n="menu3Desc">Wood-roasted sea bass, cherry tomato, salmoriglio, capers</p></div>
+          <span class="mli-price">SAR 155</span>
+        </div>
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="s1Title">Filetto di Manzo</h4><p data-i18n="s1Desc">Beef tenderloin, red wine jus, roasted potato</p></div>
+          <span class="mli-price">SAR 175</span>
+        </div>
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="s2Title">Pollo alla Griglia</h4><p data-i18n="s2Desc">Grilled chicken, salsa verde, grilled vegetables</p></div>
+          <span class="mli-price">SAR 98</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-category reveal">
+      <div class="menu-category-head"><h2 data-i18n="catDolci">Dolci</h2><span class="rule"></span></div>
+      <div class="menu-list">
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="d1Title">Tiramisu</h4><p data-i18n="d1Desc">Espresso-soaked savoiardi, mascarpone cream</p></div>
+          <span class="mli-price">SAR 48</span>
+        </div>
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="d2Title">Panna Cotta</h4><p data-i18n="d2Desc">Vanilla bean, seasonal berry compote</p></div>
+          <span class="mli-price">SAR 45</span>
+        </div>
+        <div class="menu-list-item">
+          <div class="mli-text"><h4 data-i18n="d3Title">Affogato</h4><p data-i18n="d3Desc">Vanilla gelato, hot espresso, amaretti</p></div>
+          <span class="mli-price">SAR 40</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="teaser-cta reveal">
+      <a href="index.html#reserve" class="btn btn-gold" data-i18n="menuCta">Book a Table to Taste More</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer data-theme="dark">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo.jpeg" alt="San Marzano" onerror="this.style.display='none'">
+        <p data-i18n="footerAbout">Pizzeria Italiana Ristorante — wood-fired Neapolitan pizza and authentic Italian dining.</p>
+        <div class="social-row">
+          <a href="https://www.instagram.com/sanmarzanosa" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footerExplore">Explore</h4>
+        <ul>
+          <li><a href="index.html#story" data-i18n="navStory">Our Story</a></li>
+          <li><a href="menu.html" data-i18n="navMenu">Menu</a></li>
+          <li><a href="index.html#gallery" data-i18n="navGallery">Gallery</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footerServices">Services</h4>
+        <ul>
+          <li><a href="index.html#reserve" data-i18n="navReserve">Reservations</a></li>
+          <li><a href="private-events.html" data-i18n="navEvents">Private Events</a></li>
+          <li><a href="index.html#contact" data-i18n="navContact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footerContact">Contact</h4>
+        <ul>
+          <li data-i18n="locAddress">Al Faisaliah District, King Fahd Road, Riyadh, Saudi Arabia</li>
+          <li>+966 11 000 0000</li>
+          <li>reservations@sanmarzanosa.com</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-i18n="footerCopy">© 2026 San Marzano Ristorante. All rights reserved.</span>
+      <span data-i18n="footerCredit">Pizzeria Italiana</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/i18n.js?v=2"></script>
+<script src="js/main.js?v=2"></script>
+</body>
+</html>

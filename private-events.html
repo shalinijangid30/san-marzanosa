@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Private Dining & Events | San Marzano Ristorante</title>
+<meta name="description" content="Host your next occasion at San Marzano — semi-private and full buyout dining, bespoke set menus, and a dedicated events coordinator in Riyadh.">
+<meta property="og:title" content="Private Dining & Events | San Marzano Ristorante">
+<meta property="og:description" content="Semi-private and full buyout dining, bespoke set menus, and a dedicated events coordinator.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="images/gallery-4.png">
+<meta name="theme-color" content="#1F3B2C">
+<link rel="icon" href="images/logo.jpeg">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pre-panel left"></div>
+  <div class="pre-panel right"></div>
+  <div class="pre-mark">
+    <img src="images/logo.jpeg" alt="San Marzano" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'pre-fallback',innerText:'SM'}))">
+    <div class="pre-word" data-i18n="brandFull">San Marzano</div>
+    <div class="pre-sub" data-i18n="brandTag">Pizzeria Italiana Ristorante</div>
+    <div class="pre-loading-bar"><span></span></div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="site-header">
+  <button class="lang-toggle" id="langToggle">EN / عربي</button>
+  <a href="index.html" class="brand-logo">
+    <img src="images/logo.jpeg" alt="San Marzano" onerror="this.style.display='none'">
+    <span class="brand-text" data-i18n="brandFull">San Marzano</span>
+  </a>
+  <div class="header-actions">
+    <a href="index.html#reserve" class="btn btn-gold" data-i18n="navReserveBtn">Reserve</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- FIXED VERTICAL SIDE NAV (desktop) -->
+<nav class="side-nav" id="sideNav">
+  <ul>
+    <li><a href="index.html#story" data-i18n="navStory">Our Story</a></li>
+    <li><a href="menu.html" data-i18n="navMenu">Menu</a></li>
+    <li><a href="index.html#gallery" data-i18n="navGallery">Gallery</a></li>
+    <li><a href="index.html#reserve" data-i18n="navReserve">Reservations</a></li>
+    <li><a href="private-events.html" data-i18n="navEvents">Private Events</a></li>
+    <li><a href="index.html#contact" data-i18n="navContact">Contact</a></li>
+  </ul>
+</nav>
+
+<div id="mobile-drawer">
+  <button class="close-drawer" id="closeDrawer">&times;</button>
+  <a href="index.html#story" data-i18n="navStory">Our Story</a>
+  <a href="menu.html" data-i18n="navMenu">Menu</a>
+  <a href="index.html#gallery" data-i18n="navGallery">Gallery</a>
+  <a href="index.html#reserve" data-i18n="navReserve">Reservations</a>
+  <a href="private-events.html" data-i18n="navEvents">Private Events</a>
+  <a href="index.html#contact" data-i18n="navContact">Contact</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero" data-theme="dark" style="background-image:url('images/gallery-4.png')">
+  <div class="page-hero-content">
+    <span class="eyebrow" data-i18n="eventsEyebrow">Private Dining & Events</span>
+    <h1 data-i18n="eventsTitle">Host Your Occasion at San Marzano</h1>
+    <p class="lede" data-i18n="eventsPageLede">Semi-private tables to full restaurant buyouts — bring the warmth of Italy to your next celebration.</p>
+  </div>
+</section>
+
+<!-- EVENTS INFO + GALLERY -->
+<section class="events-page-section section-pad" data-theme="light">
+  <div class="container">
+    <div class="events-gallery reveal">
+      <figure><img src="images/gallery-4.png" alt="Private dining table" loading="lazy"></figure>
+      <figure><img src="images/gallery-1.png" alt="Private booth" loading="lazy"></figure>
+      <figure><img src="images/gallery-5.png" alt="Table service" loading="lazy"></figure>
+    </div>
+
+    <div class="private-grid">
+      <div class="private-info reveal">
+        <span class="eyebrow" data-i18n="eventsEyebrow">Private Dining & Events</span>
+        <h2 data-i18n="eventsTitle">Host Your Occasion at San Marzano</h2>
+        <p data-i18n="eventsP1">From intimate family dinners to full restaurant buyouts, our private dining spaces bring the warmth of Italy to every celebration — birthdays, corporate dinners, engagements, and more.</p>
+        <ul>
+          <li data-i18n="eventsLi1">Semi-private and full buyout options</li>
+          <li data-i18n="eventsLi2">Bespoke set menus and wine pairings</li>
+          <li data-i18n="eventsLi3">Dedicated events coordinator</li>
+          <li data-i18n="eventsLi4">Capacity up to 80 guests</li>
+        </ul>
+      </div>
+      <div class="private-form-box reveal">
+        <h3 data-i18n="eventsFormTitle">Enquire Now</h3>
+        <form class="res-form" id="eventsForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="row2">
+            <div class="field">
+              <label data-i18n="fName">Full Name</label>
+              <input type="text" name="name" required>
+            </div>
+            <div class="field">
+              <label data-i18n="fEmail">Email</label>
+              <input type="email" name="email" required>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label data-i18n="fPhone">Phone</label>
+              <input type="tel" name="phone" required>
+            </div>
+            <div class="field">
+              <label data-i18n="fEventType">Event Type</label>
+              <select name="event_type" required>
+                <option value="" data-i18n="fSelect">Select</option>
+                <option data-i18n="evtBirthday">Birthday</option>
+                <option data-i18n="evtCorporate">Corporate</option>
+                <option data-i18n="evtEngagement">Engagement</option>
+                <option data-i18n="evtBuyout">Full Buyout</option>
+                <option data-i18n="evtOther">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label data-i18n="fDate">Preferred Date</label>
+              <input type="date" name="date">
+            </div>
+            <div class="field">
+              <label data-i18n="fGuestCount">Guest Count</label>
+              <input type="number" name="guest_count" min="1" placeholder="e.g. 20">
+            </div>
+          </div>
+          <div class="field">
+            <label data-i18n="fMessage">Tell Us More</label>
+            <textarea name="message" placeholder=""></textarea>
+          </div>
+          <input type="hidden" name="_subject" value="Private Dining Enquiry — San Marzano">
+          <div>
+            <button type="submit" class="btn btn-gold" data-i18n="eventsSubmit">Send Enquiry</button>
+          </div>
+          <p class="form-status" id="eventsStatus"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer data-theme="dark">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo.jpeg" alt="San Marzano" onerror="this.style.display='none'">
+        <p data-i18n="footerAbout">Pizzeria Italiana Ristorante — wood-fired Neapolitan pizza and authentic Italian dining.</p>
+        <div class="social-row">
+          <a href="https://www.instagram.com/sanmarzanosa" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footerExplore">Explore</h4>
+        <ul>
+          <li><a href="index.html#story" data-i18n="navStory">Our Story</a></li>
+          <li><a href="menu.html" data-i18n="navMenu">Menu</a></li>
+          <li><a href="index.html#gallery" data-i18n="navGallery">Gallery</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footerServices">Services</h4>
+        <ul>
+          <li><a href="index.html#reserve" data-i18n="navReserve">Reservations</a></li>
+          <li><a href="private-events.html" data-i18n="navEvents">Private Events</a></li>
+          <li><a href="index.html#contact" data-i18n="navContact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footerContact">Contact</h4>
+        <ul>
+          <li data-i18n="locAddress">Al Faisaliah District, King Fahd Road, Riyadh, Saudi Arabia</li>
+          <li>+966 11 000 0000</li>
+          <li>reservations@sanmarzanosa.com</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-i18n="footerCopy">© 2026 San Marzano Ristorante. All rights reserved.</span>
+      <span data-i18n="footerCredit">Pizzeria Italiana</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/i18n.js?v=2"></script>
+<script src="js/main.js?v=2"></script>
+</body>
+</html>
