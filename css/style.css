@@ -153,9 +153,14 @@ header#site-header.solid {
 .brand-logo .brand-text { font-family: var(--font-head); font-size: 1.1rem; letter-spacing: 0.14em; }
 
 .header-actions { display: flex; align-items: center; gap: 16px; }
-.lang-toggle {
-  border: 1px solid rgba(247,241,230,0.4); color: var(--cream); padding: 7px 14px;
+.lang-toggle,
+header#site-header .header-actions .btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 128px; height: 40px; padding: 0 14px; box-sizing: border-box;
   font-size: 0.7rem; letter-spacing: 0.14em; border-radius: 2px; transition: var(--transition);
+}
+.lang-toggle {
+  border: 1px solid rgba(247,241,230,0.4); color: var(--cream);
 }
 .lang-toggle:hover { border-color: var(--gold); color: var(--gold-light); }
 .hamburger { display: flex; flex-direction: column; gap: 5px; width: 26px; }
@@ -196,8 +201,8 @@ header#site-header.solid {
   .brand-logo .brand-text { display: none; }
   .brand-logo img { width: 36px; }
   .header-actions { gap: 8px; }
-  .lang-toggle { padding: 6px 9px; font-size: 0.6rem; }
-  .header-actions .btn { padding: 10px 16px; font-size: 0.66rem; }
+  .lang-toggle,
+  header#site-header .header-actions .btn { min-width: 92px; height: 34px; font-size: 0.6rem; padding: 0 10px; }
 }
 
 /* Mobile drawer */
