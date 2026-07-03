@@ -1,43 +1,9 @@
 (function () {
   "use strict";
 
-  /* ---------- LOGO BACKGROUND REMOVAL ---------- */
-  /* The source logo file is a JPEG with a white/paper background. Key it out
-     to transparent (with a feathered edge for the vignette) so the crest sits
-     directly on the dark preloader / hero / footer backgrounds instead of
-     showing a white box. */
-  (function stripLogoBackground() {
-    const logos = Array.from(document.querySelectorAll('img[src="images/logo.jpeg"]'));
-    if (!logos.length) return;
-    const source = logos[0];
-
-    function process() {
-      try {
-        const canvas = document.createElement("canvas");
-        canvas.width = source.naturalWidth;
-        canvas.height = source.naturalHeight;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(source, 0, 0);
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const d = imageData.data;
-        const WHITE = 238, DARK = 190;
-        for (let i = 0; i < d.length; i += 4) {
-          const brightness = (d[i] + d[i + 1] + d[i + 2]) / 3;
-          let alpha;
-          if (brightness > WHITE) alpha = 0;
-          else if (brightness > DARK) alpha = (255 * (WHITE - brightness)) / (WHITE - DARK);
-          else alpha = 255;
-          d[i + 3] = Math.min(d[i + 3], alpha);
-        }
-        ctx.putImageData(imageData, 0, 0);
-        const dataUrl = canvas.toDataURL("image/png");
-        logos.forEach((img) => { img.src = dataUrl; });
-      } catch (e) { /* canvas tainted or unsupported — keep original image */ }
-    }
-
-    if (source.complete && source.naturalWidth) process();
-    else source.addEventListener("load", process, { once: true });
-  })();
+  /* The brand logo now ships as images/logo.png with the white background
+     baked out to transparency (see git history for the old runtime canvas
+     approach) — it blends onto any page background with no processing. */
 
   /* ---------- SPLIT-FLAP PRELOADER WORD ---------- */
   (function buildSplitFlap() {
@@ -112,20 +78,29 @@
   document.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* ---------- SIDE NAV THEME (light/dark text depending on section behind it) ---------- */
+  /* ---------- SIDE NAV THEME (per-link light/dark text vs section behind it) ----------
+     The nav can straddle a dark and a light section at the same time, so each
+     link probes its own vertical midpoint against the [data-theme] sections
+     and flips its own color independently as the page scrolls. */
   const sideNav = document.getElementById("sideNav");
   const themedSections = Array.from(document.querySelectorAll("[data-theme]"));
   if (sideNav && themedSections.length) {
-    const onThemeScroll = () => {
-      const probeY = window.innerHeight / 2;
-      let current = themedSections[0];
+    const navLinks = Array.from(sideNav.querySelectorAll("a"));
+    const themeAt = (y) => {
       for (const el of themedSections) {
         const rect = el.getBoundingClientRect();
-        if (rect.top <= probeY && rect.bottom >= probeY) { current = el; break; }
+        if (rect.top <= y && rect.bottom >= y) return el.dataset.theme;
       }
-      sideNav.classList.toggle("on-light", current.dataset.theme === "light");
+      return "dark";
+    };
+    const onThemeScroll = () => {
+      navLinks.forEach((link) => {
+        const r = link.getBoundingClientRect();
+        link.classList.toggle("on-light", themeAt(r.top + r.height / 2) === "light");
+      });
     };
     document.addEventListener("scroll", onThemeScroll, { passive: true });
+    window.addEventListener("resize", onThemeScroll, { passive: true });
     onThemeScroll();
   }
 
@@ -134,6 +109,40 @@
   document.getElementById("hamburgerBtn").addEventListener("click", () => drawer.classList.add("open"));
   document.getElementById("closeDrawer").addEventListener("click", () => drawer.classList.remove("open"));
   drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", () => drawer.classList.remove("open")));
+
+  /* ---------- PARALLAX BACKGROUNDS ---------- */
+  /* Sections with [data-parallax="<speed>"] get their .parallax-bg child
+     translated at a fraction of scroll speed, so the photo drifts slower
+     than the foreground content as the section scrolls through view. */
+  const parallaxEls = Array.from(document.querySelectorAll("[data-parallax]"))
+    .map((section) => ({
+      section,
+      layer: section.querySelector(".parallax-bg"),
+      speed: parseFloat(section.dataset.parallax) || 0.2
+    }))
+    .filter((p) => p.layer);
+
+  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (parallaxEls.length && !reduceMotion) {
+    let ticking = false;
+    const updateParallax = () => {
+      parallaxEls.forEach(({ section, layer, speed }) => {
+        const rect = section.getBoundingClientRect();
+        layer.style.transform = `translateY(${rect.top * speed}px)`;
+      });
+      ticking = false;
+    };
+    const onParallaxScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    };
+    document.addEventListener("scroll", onParallaxScroll, { passive: true });
+    window.addEventListener("resize", onParallaxScroll, { passive: true });
+    updateParallax();
+  }
 
   /* ---------- SCROLL REVEAL ---------- */
   const revealEls = document.querySelectorAll(".reveal");
@@ -146,6 +155,29 @@
     });
   }, { threshold: 0.15 });
   revealEls.forEach(el => io.observe(el));
+
+  /* ---------- LIGHTBOX ---------- */
+  const lightbox = document.getElementById("lightbox");
+  if (lightbox) {
+    const lightboxImg = document.getElementById("lightboxImg");
+    const lightboxClose = document.getElementById("lightboxClose");
+    const openLightbox = (img) => {
+      lightboxImg.src = img.currentSrc || img.src;
+      lightboxImg.alt = img.alt || "";
+      lightbox.classList.add("open");
+      document.body.classList.add("no-scroll");
+    };
+    const closeLightbox = () => {
+      lightbox.classList.remove("open");
+      document.body.classList.remove("no-scroll");
+    };
+    document.querySelectorAll(".lightbox-item img").forEach((img) => {
+      img.closest(".lightbox-item").addEventListener("click", () => openLightbox(img));
+    });
+    lightboxClose.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
+  }
 
   /* ---------- LANGUAGE / RTL ---------- */
   const langToggle = document.getElementById("langToggle");

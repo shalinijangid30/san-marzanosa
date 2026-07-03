@@ -21,7 +21,8 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+@media (prefers-reduced-motion: reduce) { html { scroll-snap-type: none; scroll-behavior: auto; } }
 
 html[dir="rtl"] body { font-family: var(--font-body); }
 html[lang="ar"] { --font-head: 'Amiri', serif; --font-script: 'Amiri', serif; --font-body: 'Tajawal', sans-serif; }
@@ -45,6 +46,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding-inline: 24px;
 }
 section { position: relative; }
+section[data-snap] { scroll-snap-align: start; scroll-snap-stop: normal; scroll-margin-block-start: 84px; }
 
 .eyebrow {
   font-family: var(--font-body);
@@ -59,6 +61,16 @@ section { position: relative; }
 h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 600; color: var(--forest-deep); }
 .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.9s ease, transform 0.9s ease; }
 .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+/* Directional variants: same fade + shared settle rule above, different
+   starting offset so a group of elements can converge from different
+   sides when a section scrolls into view. */
+.reveal-top { transform: translateY(-48px); }
+.reveal-bottom { transform: translateY(56px); }
+.reveal-left { transform: translateX(-70px); }
+.reveal-right { transform: translateX(70px); }
+html[dir="rtl"] .reveal-left { transform: translateX(70px); }
+html[dir="rtl"] .reveal-right { transform: translateX(-70px); }
 
 .btn {
   display: inline-flex;
@@ -184,12 +196,11 @@ header#site-header .header-actions .btn {
 .hamburger span { height: 1px; background: var(--cream); width: 100%; display: block; }
 
 /* ---------- FIXED VERTICAL SIDE NAV (desktop) ---------- */
-/* Contrast is section-driven: JS tracks which section sits behind the nav's
-   vertical center as the page scrolls and toggles .on-light, which flips
-   link color between cream and dark. (mix-blend-mode: difference was tried
-   first for true pixel-level inversion, but it didn't composite correctly
-   against real page content for this fixed element in testing, so this is
-   the reliable fallback — still fully scroll-driven.) */
+/* Contrast is scroll-driven per link: JS probes each link's own vertical
+   midpoint against the [data-theme] sections behind it and toggles
+   .on-light on that link alone, so when the nav straddles a dark and a
+   light section, links over the dark half stay white while links over the
+   light half turn dark — updating live as the page scrolls. */
 .side-nav {
   display: none;
   position: fixed; z-index: 400;
@@ -197,7 +208,7 @@ header#site-header .header-actions .btn {
 }
 .side-nav ul { display: flex; flex-direction: column; gap: 26px; }
 .side-nav a {
-  display: inline-block; color: var(--cream); font-size: 0.72rem; letter-spacing: 0.14em;
+  display: inline-block; color: #fff; font-size: 0.72rem; letter-spacing: 0.14em;
   text-transform: uppercase; position: relative; padding-inline-start: 14px; white-space: nowrap;
   transition: color 0.3s ease;
 }
@@ -207,8 +218,8 @@ header#site-header .header-actions .btn {
 }
 .side-nav a:hover { color: var(--gold-light); }
 .side-nav a:hover::before { width: 10px; }
-.side-nav.on-light a { color: var(--forest-deep); }
-.side-nav.on-light a:hover { color: var(--gold-deep); }
+.side-nav a.on-light { color: #111; }
+.side-nav a.on-light:hover { color: var(--gold-deep); }
 
 @media (min-width: 1100px) {
   .side-nav { display: block; }
@@ -238,14 +249,26 @@ header#site-header .header-actions .btn {
 #mobile-drawer a { color: var(--cream); font-family: var(--font-head); font-size: 1.4rem; letter-spacing: 0.08em; }
 #mobile-drawer .close-drawer { position: absolute; inset-block-start: 28px; inset-inline-end: 28px; color: var(--cream); font-size: 1.8rem; }
 
+/* ---------- PARALLAX BACKGROUND LAYER ---------- */
+/* Used by any section with a .parallax-bg child + data-parallax on the
+   section. JS translates the layer at a fraction of scroll speed; it's
+   oversized (130% height, -15% offset) so the drift never exposes an edge. */
+.parallax-bg {
+  position: absolute; inset-inline: 0; inset-block-start: -15%;
+  width: 100%; height: 130%;
+  background-position: center; background-size: cover; background-repeat: no-repeat;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) { .parallax-bg { inset-block-start: 0; height: 100%; transform: none !important; } }
+
 /* ---------- HERO ---------- */
 .hero {
-  height: 100vh; min-height: 620px; position: relative;
+  height: 100vh; min-height: 620px; position: relative; overflow: hidden;
   display: flex; align-items: center; justify-content: center; text-align: center;
-  background: var(--forest-deep) url('../images/gallery-2.png') center/cover no-repeat;
+  background: var(--forest-deep);
 }
 .hero::before {
-  content: ''; position: absolute; inset: 0;
+  content: ''; position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(to bottom, rgba(20,30,22,0.55), rgba(15,20,15,0.35) 40%, rgba(15,20,15,0.75));
 }
 .hero-content { position: relative; z-index: 2; color: var(--cream); max-width: 780px; padding-inline: 24px; }
@@ -288,10 +311,20 @@ header#site-header .header-actions .btn {
 @media (min-width: 880px) { .story-grid { grid-template-columns: 1fr 1fr; } .story-media .ring { display: block; } }
 
 /* ---------- MENU HIGHLIGHTS ---------- */
-.menu-section { background: var(--forest-deep); color: var(--cream); }
+.menu-section { position: relative; overflow: hidden; background: var(--burgundy-deep); color: var(--cream); }
+.menu-section-video {
+  position: absolute; inset: 0; z-index: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.menu-section::before {
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(160deg, rgba(66,22,33,0.82), rgba(20,42,30,0.86));
+}
+.menu-section > .container { position: relative; z-index: 2; }
 .menu-section .eyebrow { color: var(--gold-light); }
 .menu-section .section-head h2 { color: var(--cream); }
 .menu-section .section-head p.lede { color: rgba(247,241,230,0.75); }
+@media (prefers-reduced-motion: reduce) { .menu-section-video { display: none; } }
 .menu-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
 .menu-card {
   background: rgba(247,241,230,0.04); border: 1px solid rgba(214,184,126,0.18);
@@ -303,6 +336,18 @@ header#site-header .header-actions .btn {
 .menu-card p { color: rgba(247,241,230,0.7); font-size: 0.92rem; margin-block-end: 14px; }
 .menu-card .price { color: var(--gold-light); font-family: var(--font-script); font-size: 1.1rem; }
 .menu-cta { text-align: center; margin-block-start: 54px; }
+/* Stagger the converging reveal: headline drops first, then the three
+   dishes and the CTA settle in from their respective sides. */
+.menu-section .section-head.reveal-top { transition-delay: 0s; }
+.menu-section .menu-card.reveal-left { transition-delay: 0.12s; }
+.menu-section .menu-card.reveal-bottom { transition-delay: 0.22s; }
+.menu-section .menu-card.reveal-right { transition-delay: 0.32s; }
+.menu-section .menu-cta.reveal-bottom { transition-delay: 0.42s; }
+/* Ease-out slowed 50%, then another 30% on top (0.9s -> 1.35s -> 1.755s
+   for section-head/CTA; 0.5s -> 0.75s -> 0.975s for menu-card, which
+   overrides the base duration via --transition). */
+.menu-section .reveal { transition-duration: 1.755s, 1.755s; }
+.menu-section .menu-card.reveal { transition-duration: 0.975s; }
 @media (min-width: 720px) { .menu-grid { grid-template-columns: repeat(3, 1fr); } }
 
 /* ---------- GALLERY ---------- */
@@ -315,9 +360,44 @@ header#site-header .header-actions .btn {
 .gallery-grid figure:nth-child(1) img, .gallery-grid figure:nth-child(4) img { aspect-ratio: 4/9; }
 @media (min-width: 720px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
 
+/* Each photo rises up into place one after another. */
+.gallery-grid figure.reveal-bottom:nth-child(1) { transition-delay: 0s; }
+.gallery-grid figure.reveal-bottom:nth-child(2) { transition-delay: 0.15s; }
+.gallery-grid figure.reveal-bottom:nth-child(3) { transition-delay: 0.3s; }
+.gallery-grid figure.reveal-bottom:nth-child(4) { transition-delay: 0.45s; }
+
+/* Clickable photos open the lightbox */
+.lightbox-item { cursor: pointer; }
+.lightbox-item img { pointer-events: none; }
+
+/* ---------- LIGHTBOX ---------- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 900;
+  background: rgba(15,20,15,0.94);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transition: opacity 0.35s ease;
+  padding: 32px;
+}
+.lightbox.open { opacity: 1; visibility: visible; }
+.lightbox img {
+  max-width: min(1100px, 90vw); max-height: 86vh;
+  width: auto; height: auto;
+  border: 4px solid var(--cream); border-radius: 2px;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+  transform: scale(0.94); transition: transform 0.35s ease;
+}
+.lightbox.open img { transform: scale(1); }
+.lightbox-close {
+  position: absolute; inset-block-start: 24px; inset-inline-end: 28px;
+  color: var(--cream); font-size: 2.2rem; line-height: 1; z-index: 2;
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(247,241,230,0.35); border-radius: 50%; transition: var(--transition);
+}
+.lightbox-close:hover { border-color: var(--gold); color: var(--gold-light); }
+
 /* ---------- FORMS (Reservation + Private Dining) ---------- */
-.form-section { position: relative; background: var(--burgundy-deep) url('../images/gallery-5.png') center/cover fixed; }
-.form-section::before { content: ''; position: absolute; inset: 0; background: rgba(30,10,16,0.86); }
+.form-section { position: relative; overflow: hidden; background: var(--burgundy-deep); }
+.form-section::before { content: ''; position: absolute; inset: 0; z-index: 1; background: rgba(30,10,16,0.86); }
 .form-wrap { position: relative; z-index: 2; max-width: 760px; margin-inline: auto; }
 .form-badge {
   display: inline-flex; align-items: center; gap: 8px; background: rgba(214,184,126,0.12);
