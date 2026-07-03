@@ -1,6 +1,15 @@
 (function () {
   "use strict";
 
+  /* ---------- ALWAYS LOAD AT THE TOP ---------- */
+  /* history.scrollRestoration (set inline in <head>) stops the browser from
+     re-applying a remembered scroll offset on reload. This additionally
+     overrides any #hash-anchor auto-scroll (e.g. reloading index.html#story)
+     so every refresh — on every page — starts at the very top. */
+  window.scrollTo(0, 0);
+  window.addEventListener("load", () => window.scrollTo(0, 0));
+  setTimeout(() => window.scrollTo(0, 0), 0);
+
   /* The brand logo now ships as images/logo.png with the white background
      baked out to transparency (see git history for the old runtime canvas
      approach) — it blends onto any page background with no processing. */
