@@ -1,43 +1,9 @@
 (function () {
   "use strict";
 
-  /* ---------- LOGO BACKGROUND REMOVAL ---------- */
-  /* The source logo file is a JPEG with a white/paper background. Key it out
-     to transparent (with a feathered edge for the vignette) so the crest sits
-     directly on the dark preloader / hero / footer backgrounds instead of
-     showing a white box. */
-  (function stripLogoBackground() {
-    const logos = Array.from(document.querySelectorAll('img[src="images/logo.jpeg"]'));
-    if (!logos.length) return;
-    const source = logos[0];
-
-    function process() {
-      try {
-        const canvas = document.createElement("canvas");
-        canvas.width = source.naturalWidth;
-        canvas.height = source.naturalHeight;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(source, 0, 0);
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const d = imageData.data;
-        const WHITE = 238, DARK = 190;
-        for (let i = 0; i < d.length; i += 4) {
-          const brightness = (d[i] + d[i + 1] + d[i + 2]) / 3;
-          let alpha;
-          if (brightness > WHITE) alpha = 0;
-          else if (brightness > DARK) alpha = (255 * (WHITE - brightness)) / (WHITE - DARK);
-          else alpha = 255;
-          d[i + 3] = Math.min(d[i + 3], alpha);
-        }
-        ctx.putImageData(imageData, 0, 0);
-        const dataUrl = canvas.toDataURL("image/png");
-        logos.forEach((img) => { img.src = dataUrl; });
-      } catch (e) { /* canvas tainted or unsupported — keep original image */ }
-    }
-
-    if (source.complete && source.naturalWidth) process();
-    else source.addEventListener("load", process, { once: true });
-  })();
+  /* The brand logo now ships as images/logo.png with the white background
+     baked out to transparency (see git history for the old runtime canvas
+     approach) — it blends onto any page background with no processing. */
 
   /* ---------- SPLIT-FLAP PRELOADER WORD ---------- */
   (function buildSplitFlap() {
