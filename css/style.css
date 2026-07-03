@@ -21,7 +21,8 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+@media (prefers-reduced-motion: reduce) { html { scroll-snap-type: none; scroll-behavior: auto; } }
 
 html[dir="rtl"] body { font-family: var(--font-body); }
 html[lang="ar"] { --font-head: 'Amiri', serif; --font-script: 'Amiri', serif; --font-body: 'Tajawal', sans-serif; }
@@ -45,6 +46,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding-inline: 24px;
 }
 section { position: relative; }
+section[data-snap] { scroll-snap-align: start; scroll-snap-stop: normal; scroll-margin-block-start: 84px; }
 
 .eyebrow {
   font-family: var(--font-body);
@@ -237,14 +239,26 @@ header#site-header .header-actions .btn {
 #mobile-drawer a { color: var(--cream); font-family: var(--font-head); font-size: 1.4rem; letter-spacing: 0.08em; }
 #mobile-drawer .close-drawer { position: absolute; inset-block-start: 28px; inset-inline-end: 28px; color: var(--cream); font-size: 1.8rem; }
 
+/* ---------- PARALLAX BACKGROUND LAYER ---------- */
+/* Used by any section with a .parallax-bg child + data-parallax on the
+   section. JS translates the layer at a fraction of scroll speed; it's
+   oversized (130% height, -15% offset) so the drift never exposes an edge. */
+.parallax-bg {
+  position: absolute; inset-inline: 0; inset-block-start: -15%;
+  width: 100%; height: 130%;
+  background-position: center; background-size: cover; background-repeat: no-repeat;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) { .parallax-bg { inset-block-start: 0; height: 100%; transform: none !important; } }
+
 /* ---------- HERO ---------- */
 .hero {
-  height: 100vh; min-height: 620px; position: relative;
+  height: 100vh; min-height: 620px; position: relative; overflow: hidden;
   display: flex; align-items: center; justify-content: center; text-align: center;
-  background: var(--forest-deep) url('../images/gallery-2.png') center/cover no-repeat;
+  background: var(--forest-deep);
 }
 .hero::before {
-  content: ''; position: absolute; inset: 0;
+  content: ''; position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(to bottom, rgba(20,30,22,0.55), rgba(15,20,15,0.35) 40%, rgba(15,20,15,0.75));
 }
 .hero-content { position: relative; z-index: 2; color: var(--cream); max-width: 780px; padding-inline: 24px; }
@@ -315,8 +329,8 @@ header#site-header .header-actions .btn {
 @media (min-width: 720px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
 
 /* ---------- FORMS (Reservation + Private Dining) ---------- */
-.form-section { position: relative; background: var(--burgundy-deep) url('../images/gallery-5.png') center/cover fixed; }
-.form-section::before { content: ''; position: absolute; inset: 0; background: rgba(30,10,16,0.86); }
+.form-section { position: relative; overflow: hidden; background: var(--burgundy-deep); }
+.form-section::before { content: ''; position: absolute; inset: 0; z-index: 1; background: rgba(30,10,16,0.86); }
 .form-wrap { position: relative; z-index: 2; max-width: 760px; margin-inline: auto; }
 .form-badge {
   display: inline-flex; align-items: center; gap: 8px; background: rgba(214,184,126,0.12);

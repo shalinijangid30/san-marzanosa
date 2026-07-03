@@ -110,6 +110,40 @@
   document.getElementById("closeDrawer").addEventListener("click", () => drawer.classList.remove("open"));
   drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", () => drawer.classList.remove("open")));
 
+  /* ---------- PARALLAX BACKGROUNDS ---------- */
+  /* Sections with [data-parallax="<speed>"] get their .parallax-bg child
+     translated at a fraction of scroll speed, so the photo drifts slower
+     than the foreground content as the section scrolls through view. */
+  const parallaxEls = Array.from(document.querySelectorAll("[data-parallax]"))
+    .map((section) => ({
+      section,
+      layer: section.querySelector(".parallax-bg"),
+      speed: parseFloat(section.dataset.parallax) || 0.2
+    }))
+    .filter((p) => p.layer);
+
+  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (parallaxEls.length && !reduceMotion) {
+    let ticking = false;
+    const updateParallax = () => {
+      parallaxEls.forEach(({ section, layer, speed }) => {
+        const rect = section.getBoundingClientRect();
+        layer.style.transform = `translateY(${rect.top * speed}px)`;
+      });
+      ticking = false;
+    };
+    const onParallaxScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    };
+    document.addEventListener("scroll", onParallaxScroll, { passive: true });
+    window.addEventListener("resize", onParallaxScroll, { passive: true });
+    updateParallax();
+  }
+
   /* ---------- SCROLL REVEAL ---------- */
   const revealEls = document.querySelectorAll(".reveal");
   const io = new IntersectionObserver((entries) => {
