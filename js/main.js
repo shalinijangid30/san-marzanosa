@@ -112,20 +112,29 @@
   document.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* ---------- SIDE NAV THEME (light/dark text depending on section behind it) ---------- */
+  /* ---------- SIDE NAV THEME (per-link light/dark text vs section behind it) ----------
+     The nav can straddle a dark and a light section at the same time, so each
+     link probes its own vertical midpoint against the [data-theme] sections
+     and flips its own color independently as the page scrolls. */
   const sideNav = document.getElementById("sideNav");
   const themedSections = Array.from(document.querySelectorAll("[data-theme]"));
   if (sideNav && themedSections.length) {
-    const onThemeScroll = () => {
-      const probeY = window.innerHeight / 2;
-      let current = themedSections[0];
+    const navLinks = Array.from(sideNav.querySelectorAll("a"));
+    const themeAt = (y) => {
       for (const el of themedSections) {
         const rect = el.getBoundingClientRect();
-        if (rect.top <= probeY && rect.bottom >= probeY) { current = el; break; }
+        if (rect.top <= y && rect.bottom >= y) return el.dataset.theme;
       }
-      sideNav.classList.toggle("on-light", current.dataset.theme === "light");
+      return "dark";
+    };
+    const onThemeScroll = () => {
+      navLinks.forEach((link) => {
+        const r = link.getBoundingClientRect();
+        link.classList.toggle("on-light", themeAt(r.top + r.height / 2) === "light");
+      });
     };
     document.addEventListener("scroll", onThemeScroll, { passive: true });
+    window.addEventListener("resize", onThemeScroll, { passive: true });
     onThemeScroll();
   }
 

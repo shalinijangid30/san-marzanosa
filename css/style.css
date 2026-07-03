@@ -184,12 +184,11 @@ header#site-header .header-actions .btn {
 .hamburger span { height: 1px; background: var(--cream); width: 100%; display: block; }
 
 /* ---------- FIXED VERTICAL SIDE NAV (desktop) ---------- */
-/* Contrast is section-driven: JS tracks which section sits behind the nav's
-   vertical center as the page scrolls and toggles .on-light, which flips
-   link color between cream and dark. (mix-blend-mode: difference was tried
-   first for true pixel-level inversion, but it didn't composite correctly
-   against real page content for this fixed element in testing, so this is
-   the reliable fallback — still fully scroll-driven.) */
+/* Contrast is scroll-driven per link: JS probes each link's own vertical
+   midpoint against the [data-theme] sections behind it and toggles
+   .on-light on that link alone, so when the nav straddles a dark and a
+   light section, links over the dark half stay white while links over the
+   light half turn dark — updating live as the page scrolls. */
 .side-nav {
   display: none;
   position: fixed; z-index: 400;
@@ -197,7 +196,7 @@ header#site-header .header-actions .btn {
 }
 .side-nav ul { display: flex; flex-direction: column; gap: 26px; }
 .side-nav a {
-  display: inline-block; color: var(--cream); font-size: 0.72rem; letter-spacing: 0.14em;
+  display: inline-block; color: #fff; font-size: 0.72rem; letter-spacing: 0.14em;
   text-transform: uppercase; position: relative; padding-inline-start: 14px; white-space: nowrap;
   transition: color 0.3s ease;
 }
@@ -207,8 +206,8 @@ header#site-header .header-actions .btn {
 }
 .side-nav a:hover { color: var(--gold-light); }
 .side-nav a:hover::before { width: 10px; }
-.side-nav.on-light a { color: var(--forest-deep); }
-.side-nav.on-light a:hover { color: var(--gold-deep); }
+.side-nav a.on-light { color: #111; }
+.side-nav a.on-light:hover { color: var(--gold-deep); }
 
 @media (min-width: 1100px) {
   .side-nav { display: block; }
