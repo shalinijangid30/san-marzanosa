@@ -343,11 +343,11 @@ header#site-header .header-actions .btn {
 .menu-section .menu-card.reveal-bottom { transition-delay: 0.22s; }
 .menu-section .menu-card.reveal-right { transition-delay: 0.32s; }
 .menu-section .menu-cta.reveal-bottom { transition-delay: 0.42s; }
-/* Ease-out slowed 50%: section-head/CTA inherit the base .reveal
-   duration (0.9s -> 1.35s); menu-card overrides it via --transition
-   (0.5s -> 0.75s), so both get bumped here. */
-.menu-section .reveal { transition-duration: 1.35s, 1.35s; }
-.menu-section .menu-card.reveal { transition-duration: 0.75s; }
+/* Ease-out slowed 50%, then another 30% on top (0.9s -> 1.35s -> 1.755s
+   for section-head/CTA; 0.5s -> 0.75s -> 0.975s for menu-card, which
+   overrides the base duration via --transition). */
+.menu-section .reveal { transition-duration: 1.755s, 1.755s; }
+.menu-section .menu-card.reveal { transition-duration: 0.975s; }
 @media (min-width: 720px) { .menu-grid { grid-template-columns: repeat(3, 1fr); } }
 
 /* ---------- GALLERY ---------- */
