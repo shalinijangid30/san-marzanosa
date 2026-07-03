@@ -156,6 +156,29 @@
   }, { threshold: 0.15 });
   revealEls.forEach(el => io.observe(el));
 
+  /* ---------- LIGHTBOX ---------- */
+  const lightbox = document.getElementById("lightbox");
+  if (lightbox) {
+    const lightboxImg = document.getElementById("lightboxImg");
+    const lightboxClose = document.getElementById("lightboxClose");
+    const openLightbox = (img) => {
+      lightboxImg.src = img.currentSrc || img.src;
+      lightboxImg.alt = img.alt || "";
+      lightbox.classList.add("open");
+      document.body.classList.add("no-scroll");
+    };
+    const closeLightbox = () => {
+      lightbox.classList.remove("open");
+      document.body.classList.remove("no-scroll");
+    };
+    document.querySelectorAll(".lightbox-item img").forEach((img) => {
+      img.closest(".lightbox-item").addEventListener("click", () => openLightbox(img));
+    });
+    lightboxClose.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
+  }
+
   /* ---------- LANGUAGE / RTL ---------- */
   const langToggle = document.getElementById("langToggle");
   const getLang = () => localStorage.getItem("sm_lang") || "en";

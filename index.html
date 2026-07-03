@@ -11,7 +11,7 @@
 <meta property="og:image" content="images/gallery-1.png">
 <meta name="theme-color" content="#1F3B2C">
 <link rel="icon" href="images/logo.png">
-<link rel="stylesheet" href="css/style.css?v=7">
+<link rel="stylesheet" href="css/style.css?v=8">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -140,11 +140,11 @@
       <span class="eyebrow" data-i18n="galleryEyebrow">Ambience</span>
       <h2 data-i18n="galleryTitle">A Room Worth Lingering In</h2>
     </div>
-    <div class="gallery-grid reveal">
-      <figure><img src="images/gallery-1.png" alt="Booth seating" loading="lazy"></figure>
-      <figure><img src="images/gallery-3.png" alt="Wood-fired oven" loading="lazy"></figure>
-      <figure><img src="images/gallery-4.png" alt="Dining table" loading="lazy"></figure>
-      <figure><img src="images/gallery-5.png" alt="Table service" loading="lazy"></figure>
+    <div class="gallery-grid">
+      <figure class="reveal reveal-bottom lightbox-item"><img src="images/gallery-1.png" alt="Booth seating" loading="lazy"></figure>
+      <figure class="reveal reveal-bottom lightbox-item"><img src="images/gallery-3.png" alt="Wood-fired oven" loading="lazy"></figure>
+      <figure class="reveal reveal-bottom lightbox-item"><img src="images/gallery-4.png" alt="Dining table" loading="lazy"></figure>
+      <figure class="reveal reveal-bottom lightbox-item"><img src="images/gallery-5.png" alt="Table service" loading="lazy"></figure>
     </div>
   </div>
 </section>
@@ -274,7 +274,13 @@
   </div>
 </footer>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
 <script src="js/i18n.js?v=4"></script>
-<script src="js/main.js?v=3"></script>
+<script src="js/main.js?v=4"></script>
 </body>
 </html>
