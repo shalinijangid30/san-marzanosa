@@ -184,6 +184,12 @@ header#site-header .header-actions .btn {
 .hamburger span { height: 1px; background: var(--cream); width: 100%; display: block; }
 
 /* ---------- FIXED VERTICAL SIDE NAV (desktop) ---------- */
+/* Contrast is section-driven: JS tracks which section sits behind the nav's
+   vertical center as the page scrolls and toggles .on-light, which flips
+   link color between cream and dark. (mix-blend-mode: difference was tried
+   first for true pixel-level inversion, but it didn't composite correctly
+   against real page content for this fixed element in testing, so this is
+   the reliable fallback — still fully scroll-driven.) */
 .side-nav {
   display: none;
   position: fixed; z-index: 400;
