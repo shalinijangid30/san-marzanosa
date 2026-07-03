@@ -62,6 +62,16 @@ h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 600; color: var(--f
 .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.9s ease, transform 0.9s ease; }
 .reveal.in-view { opacity: 1; transform: translateY(0); }
 
+/* Directional variants: same fade + shared settle rule above, different
+   starting offset so a group of elements can converge from different
+   sides when a section scrolls into view. */
+.reveal-top { transform: translateY(-48px); }
+.reveal-bottom { transform: translateY(56px); }
+.reveal-left { transform: translateX(-70px); }
+.reveal-right { transform: translateX(70px); }
+html[dir="rtl"] .reveal-left { transform: translateX(70px); }
+html[dir="rtl"] .reveal-right { transform: translateX(-70px); }
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -326,6 +336,13 @@ header#site-header .header-actions .btn {
 .menu-card p { color: rgba(247,241,230,0.7); font-size: 0.92rem; margin-block-end: 14px; }
 .menu-card .price { color: var(--gold-light); font-family: var(--font-script); font-size: 1.1rem; }
 .menu-cta { text-align: center; margin-block-start: 54px; }
+/* Stagger the converging reveal: headline drops first, then the three
+   dishes and the CTA settle in from their respective sides. */
+.menu-section .section-head.reveal-top { transition-delay: 0s; }
+.menu-section .menu-card.reveal-left { transition-delay: 0.12s; }
+.menu-section .menu-card.reveal-bottom { transition-delay: 0.22s; }
+.menu-section .menu-card.reveal-right { transition-delay: 0.32s; }
+.menu-section .menu-cta.reveal-bottom { transition-delay: 0.42s; }
 @media (min-width: 720px) { .menu-grid { grid-template-columns: repeat(3, 1fr); } }
 
 /* ---------- GALLERY ---------- */
