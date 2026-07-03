@@ -301,10 +301,20 @@ header#site-header .header-actions .btn {
 @media (min-width: 880px) { .story-grid { grid-template-columns: 1fr 1fr; } .story-media .ring { display: block; } }
 
 /* ---------- MENU HIGHLIGHTS ---------- */
-.menu-section { background: var(--forest-deep); color: var(--cream); }
+.menu-section { position: relative; overflow: hidden; background: var(--burgundy-deep); color: var(--cream); }
+.menu-section-video {
+  position: absolute; inset: 0; z-index: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.menu-section::before {
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(160deg, rgba(66,22,33,0.82), rgba(20,42,30,0.86));
+}
+.menu-section > .container { position: relative; z-index: 2; }
 .menu-section .eyebrow { color: var(--gold-light); }
 .menu-section .section-head h2 { color: var(--cream); }
 .menu-section .section-head p.lede { color: rgba(247,241,230,0.75); }
+@media (prefers-reduced-motion: reduce) { .menu-section-video { display: none; } }
 .menu-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
 .menu-card {
   background: rgba(247,241,230,0.04); border: 1px solid rgba(214,184,126,0.18);
